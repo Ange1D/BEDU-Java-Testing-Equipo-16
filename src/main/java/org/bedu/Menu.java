@@ -16,11 +16,12 @@ public class Menu {
     public void showMainMenu() {
         int option = 0;
 
-        while (option != 3 ) {
+        while (option != 3) {
             System.out.println("Seleccione la operacion a realizar:");
             System.out.println("1. Dar de alta un entrevistador");
             System.out.println("2. Consultar un entrevistador");
-            System.out.println("3. Salir");
+            System.out.println("3. Modificar un entrevistador");
+            System.out.println("4. Salir");
 
             option = sc.nextInt();
             sc.nextLine();
@@ -32,8 +33,12 @@ public class Menu {
                 case 2:
                     searchInterviewer();
                     break;
+                case 3:
+                    modifyInterviewer();
+                    break;
             }
-        };
+        }
+        ;
 
         System.out.println("Programa terminado");
     }
@@ -64,6 +69,33 @@ public class Menu {
         if (interviewer != null) {
             System.out.println("Entrevistador encontrado:");
             System.out.println(interviewer.toString());
+        } else {
+            System.out.println("Entrevistador no encontrado");
+        }
+    }
+
+    public void modifyInterviewer() {
+        System.out.println("Ingrese el email del entrevistador a modificar:");
+        String email = sc.nextLine();
+
+        Interviewer interviewer = Interviewer.getByEmail(email);
+
+        if (interviewer != null) {
+            System.out.println("Entrevistador encontrado:");
+            System.out.println(interviewer.toString());
+
+            System.out.println("Ingrese el nuevo nombre del entrevistador: (Enter para mantener actual)");
+            String name = sc.nextLine();
+            System.out.println("Ingrese el nuevo apellido del entrevistador: (Enter para mantener actual)");
+            String lastName = sc.nextLine();
+            System.out.println("Ingrese el nuevo email del entrevistador: (Enter para mantener actual)");
+            String newEmail = sc.nextLine();
+            System.out.println("El entrevistador se encuentra activo? (1=Si/2=No)");
+            Boolean isActive = sc.nextInt() == 1;
+            sc.nextLine();
+
+            interviewer.save(name, lastName, newEmail, isActive);
+
         } else {
             System.out.println("Entrevistador no encontrado");
         }

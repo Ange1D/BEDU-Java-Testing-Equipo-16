@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class InterviewerTest {
     static String existingInterviewerName = "First";
     static String existingInterviewerLastName = "User";
-    static String existingInterviewerEmail =  "first@email.com";
+    static String existingInterviewerEmail = "first@email.com";
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -45,6 +45,36 @@ public class InterviewerTest {
         );
     }
 
+
+    @Test
+    public void save() {
+        int originalListSize = Interviewer.data.size();
+        String expectedLastName = "New";
+        Interviewer existingInterviewer = Interviewer.data.get(0);
+        System.out.println(Interviewer.data.size());
+        existingInterviewer.save("", expectedLastName, "", true);
+
+        int newListSize = Interviewer.data.size();
+        System.out.println(Interviewer.data.size());
+        int lastInterviewerIndex = newListSize - 1;
+        Interviewer latestInterviewer = Interviewer.data.get(lastInterviewerIndex);
+
+        assertEquals(
+                originalListSize,
+                newListSize,
+                "List size should be the same"
+        );
+        assertEquals(
+                expectedLastName,
+                latestInterviewer.lastName,
+                "Last Name should have been updated"
+        );
+        assertEquals(
+                existingInterviewer.name,
+                latestInterviewer.name,
+                "Name should have not been updated"
+        );
+    }
 
     @Test
     public void getByEmail() {

@@ -27,7 +27,19 @@ public class Interviewer implements Serializable {
 
     public Interviewer add() {
         data.add(this);
+        Interviewer.saveDataToFile();
         return this;
+    }
+
+    public void delete() throws Exception{
+        Interviewer interviewer = Interviewer.getByEmail(this.email);
+
+        if (interviewer != null) {
+            data.remove(this);
+            Interviewer.saveDataToFile();
+        }
+        else
+            throw new Exception("Interviewer not found");
     }
 
     public void save(
@@ -36,6 +48,13 @@ public class Interviewer implements Serializable {
             String email,
             Boolean isActive
     ) {
+        try {
+            this.delete();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
         if (!name.equals(""))
             this.name = name;
 
@@ -66,5 +85,37 @@ public class Interviewer implements Serializable {
                 "\nLast Name: " + this.lastName +
                 "\nEmail: " + this.email +
                 "\nIs Active: " + this.isActive + "\n";
+    }
+
+    public static void saveDataToFile() {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream("./interviewers");
+            ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
+
+            outputStream.writeObject(Interviewer.data);
+
+            outputStream.close();
+            fileOutputStream.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public static void loadDataFromFile() {
+        try {
+            FileInputStream fileInputStream = new FileInputStream("./interviewers");
+            ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);
+
+            ArrayList<Interviewer> fileData = (ArrayList<Interviewer>) inputStream.readObject();
+
+            Interviewer.data.clear();
+            Interviewer.data.addAll(fileData);
+
+            inputStream.close();
+            fileInputStream.close();
+        } catch (Exception e) {
+            if (!e.getMessage().contains("No such file or directory"))
+                e.printStackTrace();
+        }
     }
 }
