@@ -101,4 +101,25 @@ public class InterviewerTest {
 
         assertNull(result, "Interviewer should not be found");
     }
+
+    @Test
+    public void delete() {
+        Interviewer existingInterviewer = Interviewer.data.get(0);
+
+        int expectedSize = Interviewer.data.size() - 1;
+
+        try {
+            existingInterviewer.delete();
+        } catch (Exception e) {
+            fail("Unexpected Exception received: " + e.getMessage());
+        }
+
+        int actualSize = Interviewer.data.size();
+
+        assertEquals(
+                expectedSize,
+                actualSize,
+                "List should be smaller"
+        );
+    }
 }

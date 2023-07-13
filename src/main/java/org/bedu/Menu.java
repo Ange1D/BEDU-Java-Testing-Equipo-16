@@ -9,6 +9,7 @@ public class Menu {
     public Menu() {
         sc = new Scanner(System.in);
         Interviewer.data = new ArrayList<Interviewer>();
+        Interviewer.loadDataFromFile();
 
         showMainMenu();
     }
@@ -16,12 +17,13 @@ public class Menu {
     public void showMainMenu() {
         int option = 0;
 
-        while (option != 3) {
+        while (option != 5 ) {
             System.out.println("Seleccione la operacion a realizar:");
             System.out.println("1. Dar de alta un entrevistador");
             System.out.println("2. Consultar un entrevistador");
             System.out.println("3. Modificar un entrevistador");
-            System.out.println("4. Salir");
+            System.out.println("4. Eliminar un entrevistador");
+            System.out.println("5. Salir");
 
             option = sc.nextInt();
             sc.nextLine();
@@ -36,9 +38,11 @@ public class Menu {
                 case 3:
                     modifyInterviewer();
                     break;
+                case 4:
+                    deleteInterviewer();
+                    break;
             }
-        }
-        ;
+        };
 
         System.out.println("Programa terminado");
     }
@@ -98,6 +102,18 @@ public class Menu {
 
         } else {
             System.out.println("Entrevistador no encontrado");
+        }
+    }
+
+    public void deleteInterviewer() {
+        System.out.println("Ingrese el email del entrevistador a eliminar:");
+        String email = sc.nextLine();
+
+        Interviewer interviewer = Interviewer.getByEmail(email);
+        try {
+            interviewer.delete();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
