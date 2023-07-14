@@ -1,0 +1,23 @@
+name: Integracion Continua
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v2
+
+      - name: Configurar el JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: "11"
+          distribution: "zulu"
+
+      - name: Ejecutar las pruebas
+        run: ./gradlew test --no-daemon
+
+on:
+  push:
+    branches:
+      - main
