@@ -46,7 +46,7 @@ public class MenuTest {
         final String interviewerName = "Interviewer Name";
         final String interviewerLastName = "Interviewer Lastname";
         final String interviewerEmail = "Interviewer Email";
-        final String addNewInterviewerCommand = "1 \n " + interviewerName + " \n " + interviewerLastName + " \n " + interviewerEmail + " \n 1 \n" + exitCommand;
+        final String addNewInterviewerCommand = "1 \n " + interviewerName + " \n " + interviewerLastName + " \n " + interviewerEmail + " \n 1 \n 1 \n" + exitCommand;
         provideInput(addNewInterviewerCommand);
 
         Menu.main(new String[0]);
@@ -62,7 +62,7 @@ public class MenuTest {
         final String interviewerName = "Interviewer Name";
         final String interviewerLastName = "Interviewer Lastname";
         final String interviewerEmail = "interviewer@mail.com";
-        final String addNewInterviewerCommand = "1 \n " + interviewerName + " \n " + interviewerLastName + " \n " + interviewerEmail + " \n 1 \n";
+        final String addNewInterviewerCommand = "1 \n " + interviewerName + " \n " + interviewerLastName + " \n " + interviewerEmail + " \n 1 \n 1 \n";
         final String getInterviewerCommand = "2 \n " + interviewerEmail + "\n ";
         provideInput(addNewInterviewerCommand + getInterviewerCommand + exitCommand);
 
