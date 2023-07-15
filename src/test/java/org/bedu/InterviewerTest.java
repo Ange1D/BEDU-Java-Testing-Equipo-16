@@ -22,6 +22,7 @@ public class InterviewerTest {
                 existingInterviewerName,
                 existingInterviewerLastName,
                 existingInterviewerEmail,
+                true,
                 true
         ));
     }
@@ -32,6 +33,7 @@ public class InterviewerTest {
                 "Test",
                 "User",
                 "any@email.com",
+                true,
                 true
         );
 
@@ -52,7 +54,7 @@ public class InterviewerTest {
         String expectedLastName = "New";
         Interviewer existingInterviewer = Interviewer.data.get(0);
         System.out.println(Interviewer.data.size());
-        existingInterviewer.save("", expectedLastName, "", true);
+        existingInterviewer.save("", expectedLastName, "", true,true);
 
         int newListSize = Interviewer.data.size();
         System.out.println(Interviewer.data.size());
@@ -94,7 +96,7 @@ public class InterviewerTest {
     }
 
     @Test
-    public void getByNonExistingEmail() {
+    public void getByNonExistingName() {
         String nonExistingEmail = "nonexisting@email.com";
 
         Interviewer result = Interviewer.getByEmail(nonExistingEmail);

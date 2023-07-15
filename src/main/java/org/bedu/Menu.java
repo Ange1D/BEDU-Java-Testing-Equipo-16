@@ -56,9 +56,11 @@ public class Menu {
         String email = sc.nextLine();
         System.out.println("El entrevistador se encuentra activo? (1=Si/2=No)");
         Boolean isActive = sc.nextInt() == 1;
+        System.out.println("El entrevistador es administrador? (1=Si/2=No)");
+        Boolean isAdmin = sc.nextInt() == 1;
         sc.nextLine();
 
-        Interviewer interviewer = new Interviewer(name, lastName, email, isActive);
+        Interviewer interviewer = new Interviewer(name, lastName, email, isActive,isAdmin);
         interviewer.add();
 
         System.out.println(interviewer.toString());
@@ -96,9 +98,11 @@ public class Menu {
             String newEmail = sc.nextLine();
             System.out.println("El entrevistador se encuentra activo? (1=Si/2=No)");
             Boolean isActive = sc.nextInt() == 1;
+            System.out.println("El entrevistador es administrador? (1=Si/2=No)");
+            Boolean isAdmin = sc.nextInt() == 1;
             sc.nextLine();
 
-            interviewer.save(name, lastName, newEmail, isActive);
+            interviewer.save(name, lastName, newEmail, isActive,isAdmin);
 
         } else {
             System.out.println("Entrevistador no encontrado");

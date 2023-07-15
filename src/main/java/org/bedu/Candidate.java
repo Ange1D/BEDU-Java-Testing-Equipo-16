@@ -3,43 +3,41 @@ package org.bedu;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Interviewer implements Serializable {
-    static ArrayList<Interviewer> data;
+public class Candidate {
+
+    static ArrayList<Candidate> data;
 
     int id;
     String name;
     String lastName;
     String email;
     Boolean isActive;
-    Boolean isAdmin;
 
-    public Interviewer(
+    public Candidate(
             String name,
             String lastName,
             String email,
-            Boolean isActive,
-            Boolean isAdmin
+            Boolean isActive
     ) {
         this.id = data.size() + 1;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.isActive = isActive;
-        this.isAdmin = isAdmin;
     }
 
-    public Interviewer add() {
+    public Candidate add() {
         data.add(this);
-        Interviewer.saveDataToFile();
+        Candidate.saveDataToFile();
         return this;
     }
 
     public void delete() throws Exception{
-        Interviewer interviewer = Interviewer.getByEmail(this.email);
+        Candidate candidate = Candidate.getByEmail(this.email);
 
-        if (interviewer != null) {
+        if (candidate != null) {
             data.remove(this);
-            Interviewer.saveDataToFile();
+            Candidate.saveDataToFile();
         }
         else
             throw new Exception("Interviewer not found");
@@ -49,8 +47,7 @@ public class Interviewer implements Serializable {
             String name,
             String lastName,
             String email,
-            Boolean isActive,
-            Boolean isAdmin
+            Boolean isActive
     ) {
         try {
             this.delete();
@@ -70,33 +67,21 @@ public class Interviewer implements Serializable {
 
         this.isActive = isActive;
 
-        this.isAdmin = isAdmin;
-
         data.add(this);
     }
 
-    public static Interviewer getByEmail(String email) {
-        for (Interviewer interviewer: data) {
-            if (interviewer.email.equals(email))
-                return interviewer;
+    public static Candidate getByEmail(String email) {
+        for (Candidate candidate: data) {
+            if (candidate.email.equals(email))
+                return candidate;
         }
 
         return null;
     }
 
-    @Override
-    public String toString() {
-        return "\nID: " + this.id +
-                "\nName: " + this.name +
-                "\nLast Name: " + this.lastName +
-                "\nEmail: " + this.email +
-                "\nIs Active: " + this.isActive +
-                "\nIs Admin: " + this.isAdmin + "\n";
-    }
-
     public static void saveDataToFile() {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream("./interviewers");
+            FileOutputStream fileOutputStream = new FileOutputStream("./candidates");
             ObjectOutputStream outputStream = new ObjectOutputStream(fileOutputStream);
 
             outputStream.writeObject(Interviewer.data);
@@ -110,13 +95,13 @@ public class Interviewer implements Serializable {
 
     public static void loadDataFromFile() {
         try {
-            FileInputStream fileInputStream = new FileInputStream("./interviewers");
+            FileInputStream fileInputStream = new FileInputStream("./candidates");
             ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);
 
-            ArrayList<Interviewer> fileData = (ArrayList<Interviewer>) inputStream.readObject();
+            ArrayList<Candidate> fileData = (ArrayList<Candidate>) inputStream.readObject();
 
-            Interviewer.data.clear();
-            Interviewer.data.addAll(fileData);
+            Candidate.data.clear();
+            Candidate.data.addAll(fileData);
 
             inputStream.close();
             fileInputStream.close();
@@ -125,4 +110,5 @@ public class Interviewer implements Serializable {
                 e.printStackTrace();
         }
     }
+
 }
