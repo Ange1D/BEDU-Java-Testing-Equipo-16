@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "se.thinkcode.cucumber-runner" version "0.0.11"
 }
 
 group 'org.bedu'
@@ -10,6 +11,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'io.cucumber:cucumber-java:7.12.1'
+    implementation 'io.cucumber:cucumber-junit:7.12.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
@@ -17,4 +20,9 @@ dependencies {
 test {
     useJUnitPlatform()
     systemProperty 'junit.jupiter.execution.parallel.enabled', 'true'
+}
+
+cucumber {
+    glue = "classpath:org.bedu.stepdefinitions"
+    main = "io.cucumber.core.cli.Main"
 }

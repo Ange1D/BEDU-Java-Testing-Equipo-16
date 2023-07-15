@@ -4,9 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Interviewer implements Serializable {
-    static ArrayList<Interviewer> data;
+    public static ArrayList<Interviewer> data;
 
-    int id;
+    public int id;
     String name;
     String lastName;
     String email;
